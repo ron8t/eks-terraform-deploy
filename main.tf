@@ -78,26 +78,25 @@ module "aws_alb_controller" {
 #   grafana_security_group_id = module.managed_grafana.security_group_id
 # }
 
+ module "jenkins_server" {
+   source        = "./modules/jenkins-server"
+   ami_id        = var.ami_id
+   instance_type = var.instance_type
+   key_name      = var.key_name
+   main-region   = var.main-region
+ }
 
-# module "jenkins_server" {
-#   source        = "./modules/jenkins-server"
-#   ami_id        = var.ami_id
-#   instance_type = var.instance_type
-#   key_name      = var.key_name
-#   main-region   = var.main-region
-# }
+ module "terraform_node" {
+   source        = "./modules/terraform_node"
+   ami_id        = var.ami_id
+   instance_type = var.instance_type
+   key_name      = var.key_name
+   main-region   = var.main-region
+ }
 
-# module "terraform_node" {
-#   source        = "./modules/terraform_node"
-#   ami_id        = var.ami_id
-#   instance_type = var.instance_type
-#   key_name      = var.key_name
-#   main-region   = var.main-region
-# }
-
-# module "s3_dynamodb" {
-#   source = "./modules/s3-dynamodb"
-#   bucket = var.s3_bucket
-#   table  = var.dynamodb_table
-#   region = var.main-region
-# }
+ module "s3_dynamodb" {
+   source = "./modules/s3-dynamodb"
+   bucket = var.s3_bucket
+   table  = var.dynamodb_table
+   region = var.main-region
+ }
